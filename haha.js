@@ -30,12 +30,22 @@ fs.readFile('Camera_Out','utf8', (err, file) => {
     rightbottom = getBotRight(data)
     let width = Math.abs(lefttop[0] - righttop[0])
     let height = Math.abs(lefttop[1] - leftbottom[1])    
-    let cwidth = parseInt(width/5)
-    let cheight = parseInt(height/5)
+    let cwidth = parseInt(width/10)
+    let cheight = parseInt(height/10)
+
+    c11 = 0
+    c31 = 0
+    c13 = 0
+    c33 = 0
+    c11 = data[parseInt(cwidth*3)][parseInt(cheight*3)] == 255 ? 0 : 1
+    c31 = data[parseInt(cwidth*9)][parseInt(cheight*3)] == 255 ? 0 : 1
+    c13 = data[parseInt(cwidth*3)][parseInt(cheight*9)] == 255 ? 0 : 1
+    c33 = data[parseInt(cwidth*9)][parseInt(cheight*9)] == 255 ? 0 : 1
+    console.log(c11,c31,c13,c11)
 //   console.log(width, height)
 
 
-                 
+
 
 
 
@@ -72,8 +82,8 @@ fs.readFile('Camera_Out','utf8', (err, file) => {
     
   
 // imgs.append(chunks(shit, int(cheight)))
- }
- }
+//  }
+//  }
  function int(nu){
      return parseInt(nu)
  }
@@ -87,8 +97,8 @@ fs.readFile('Camera_Out','utf8', (err, file) => {
     return a + b;
 }
 
-    color = chunk(color,5)
-    console.log(color)
+    // color = chunk(color,5)
+    // console.log(color)
 
 
     data = rotate2d(data)
