@@ -19,19 +19,77 @@ fs.readFile('Camera_Out','utf8', (err, file) => {
     data = rotate2d(data)
     // data = rotate2d(data)
     
-    let topx = [-1, 0],
-    topy = [0, -1],
-    lowx = [1500000, 0],
-    lowy = [0,1500000]
+    
     let lefttop = [0,1555]
     let leftbottom = []
     let righttop = []
     let rightbottom = []
-    topx = getTopLeft(data)
-    topy = getTopRight(data)
-    lowx = getBotLeft(data)
-    lowy = getBotRight(data)
+    lefttop = getTopLeft(data)
+    righttop = getTopRight(data)
+    leftbottom = getBotLeft(data)
+    rightbottom = getBotRight(data)
+    let width = Math.abs(lefttop[0] - righttop[0])
+    let height = Math.abs(lefttop[1] - leftbottom[1])    
+    let cwidth = parseInt(width/5)
+    let cheight = parseInt(height/5)
+//   console.log(width, height)
+
+
+                 
+
+
+
+
+// let curry = 0
+// let color =[]
+//  for (let i = 0; i<5; i++){ // чекаем по y
+//   currx = 0
+//   if (i != 0)  curry += cheight
+//   for (let j = 0; j<5 ;j++){
+//       shit = []
+//       сolor = []
+//       if( j!= 0)  currx += cwidth
+//       for (let k =0; k<parseInt(cwidth);k++){
+//           for (let q = 0; q<parseInt(cheight); q++){
+//               if (curry != cheight*4)
+//                   shit.push(data[int(currx)+k][int(curry)+q])
+//               else
+//                   shit.push(data[int(currx)+k][int(curry-(height-width))+q])
+//                 }
+//                 }
+//         shit = chunk(shit, parseInt(cwidth))
+//         image4 = PNGImage.createImage(parseInt(cwidth)+1,parseInt(cheight)+1)
+//         for(let x = 0; x<shit.length;x++){
+//             for(let y = 0; y<shit[0].length; y++){
+//                 if (shit[x][y] == 255){
+//                 image4.setAt(x,y, { red:255, green:0, blue:5, alpha:1000 })
+//             }else{
+//                 image4.setAt(x,y, { red:0, green:0, blue:0, alpha:1000 })
+//                 }
+            
+//         }
+//     }
     
+  
+// imgs.append(chunks(shit, int(cheight)))
+ }
+ }
+ function int(nu){
+     return parseInt(nu)
+ }
+ function len(ar){
+     return ar.length
+ }
+ function sum(ar){
+     return ar.reduce(add,0)
+ }
+ function add(a, b) {
+    return a + b;
+}
+
+    color = chunk(color,5)
+    console.log(color)
+
 
     data = rotate2d(data)
     
@@ -45,14 +103,15 @@ fs.readFile('Camera_Out','utf8', (err, file) => {
         
     }
 }
-console.log(`Topx: ${topx}
-TopY: ${topy}
-LowX: ${lowx}
-Lowy: ${lowy}`)
-image.setAt(topx[0],topx[1], { red:0, green:255, blue:5, alpha:1000 })
-image.setAt(topy[0],topy[1], { red:0, green:255, blue:5, alpha:1000 })
-image.setAt(lowx[0],lowx[1], { red:0, green:255, blue:5, alpha:1000 })
-image.setAt(lowy[0],lowy[1], { red:0, green:255, blue:5, alpha:1000 })
+console.log(`Topx: ${lefttop}
+TopY: ${leftbottom}
+LowX: ${righttop}
+Lowy: ${rightbottom}`)
+image.setAt(lefttop[0],lefttop[1], { red:0, green:255, blue:5, alpha:1000 })
+
+image.setAt(leftbottom[0],leftbottom[1], { red:0, green:255, blue:5, alpha:1000 })
+image.setAt(righttop[0],righttop[1], { red:0, green:255, blue:5, alpha:1000 })
+image.setAt(rightbottom[0],rightbottom[1], { red:0, green:255, blue:5, alpha:1000 })
 
     image.writeImage('GodPlease1.png')
 }) 
