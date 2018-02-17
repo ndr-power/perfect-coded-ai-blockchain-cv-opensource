@@ -24,10 +24,11 @@ fs.readFile('Camera_Out','utf8', (err, file) => {
     let leftbottom = []
     let righttop = []
     let rightbottom = []
-    lefttop = getTopLeft(data)
+    lefttop = getTopLeft(data) //
     righttop = getTopRight(data)
     leftbottom = getBotLeft(data)
     rightbottom = getBotRight(data)
+    // console.log(lefttop,righttop,leftbottom,rightbottom)
     let width = Math.abs(lefttop[0] - righttop[0])
     let height = Math.abs(lefttop[1] - leftbottom[1])    
     let cwidth = parseInt(width/10)
@@ -37,11 +38,19 @@ fs.readFile('Camera_Out','utf8', (err, file) => {
     c31 = 0
     c13 = 0
     c33 = 0
-    c11 = data[parseInt(cwidth*3)][parseInt(cheight*3)] == 255 ? 0 : 1
-    c31 = data[parseInt(cwidth*9)][parseInt(cheight*3)] == 255 ? 0 : 1
-    c13 = data[parseInt(cwidth*3)][parseInt(cheight*9)] == 255 ? 0 : 1
-    c33 = data[parseInt(cwidth*9)][parseInt(cheight*9)] == 255 ? 0 : 1
-    console.log(c11,c31,c13,c11)
+    // data = rotate2d(data)
+    c11 = data[lefttop[0]+parseInt(cwidth*3)][lefttop[1]+parseInt(cheight*2)] == 255 ? 0 : 1
+    c31 = data[lefttop[0]+parseInt(cwidth*7)][lefttop[1]+parseInt(cheight*2)] == 255 ? 0 : 1
+    c13 = data[lefttop[0]+parseInt(cwidth*3)][lefttop[1]+parseInt(cheight*7)] == 255 ? 0 : 1
+    c33 = data[lefttop[0]+parseInt(cwidth*7)][lefttop[1]+parseInt(cheight*7)] == 255 ? 0 : 1
+    
+    console.log(data[lefttop[0]+parseInt(cwidth*3)][lefttop[1]+parseInt(cheight*2)],
+    data[lefttop[0]+parseInt(cwidth*7)][lefttop[1]+parseInt(cheight*2)],
+    data[lefttop[0]+parseInt(cwidth*3)][lefttop[1]+parseInt(cheight*7)],
+    data[lefttop[0]+parseInt(cwidth*7)][lefttop[1]+parseInt(cheight*7)])
+    
+    console.log(c11,c31,c13,c33)
+    
 //   console.log(width, height)
 
 
@@ -68,17 +77,18 @@ fs.readFile('Camera_Out','utf8', (err, file) => {
 //                 }
 //                 }
 //         shit = chunk(shit, parseInt(cwidth))
-//         image4 = PNGImage.createImage(parseInt(cwidth)+1,parseInt(cheight)+1)
-//         for(let x = 0; x<shit.length;x++){
-//             for(let y = 0; y<shit[0].length; y++){
-//                 if (shit[x][y] == 255){
-//                 image4.setAt(x,y, { red:255, green:0, blue:5, alpha:1000 })
-//             }else{
-//                 image4.setAt(x,y, { red:0, green:0, blue:0, alpha:1000 })
-//                 }
+//         console.log(shit)
+        // image4 = PNGImage.createImage(parseInt(cwidth)+1,parseInt(cheight)+1)
+    //     for(let x = 0; x<shit.length;x++){
+    //         for(let y = 0; y<shit[0].length; y++){
+    //             if (shit[x][y] == 255){
+    //             image4.setAt(x,y, { red:255, green:0, blue:5, alpha:1000 })
+    //         }else{
+    //             image4.setAt(x,y, { red:0, green:0, blue:0, alpha:1000 })
+    //             }
             
-//         }
-//     }
+    //     }
+    // }
     
   
 // imgs.append(chunks(shit, int(cheight)))
@@ -113,16 +123,22 @@ fs.readFile('Camera_Out','utf8', (err, file) => {
         
     }
 }
-console.log(`Topx: ${lefttop}
-TopY: ${leftbottom}
-LowX: ${righttop}
-Lowy: ${rightbottom}`)
+// console.log(`Topx: ${lefttop}
+// TopY: ${leftbottom}
+// LowX: ${righttop}
+// Lowy: ${rightbottom}`)
+
 image.setAt(lefttop[0],lefttop[1], { red:0, green:255, blue:5, alpha:1000 })
 
 image.setAt(leftbottom[0],leftbottom[1], { red:0, green:255, blue:5, alpha:1000 })
 image.setAt(righttop[0],righttop[1], { red:0, green:255, blue:5, alpha:1000 })
 image.setAt(rightbottom[0],rightbottom[1], { red:0, green:255, blue:5, alpha:1000 })
 
+
+image.setAt(lefttop[0]+parseInt(cwidth*3),lefttop[1]+parseInt(cheight*2), { red:0, green:255, blue:5, alpha:1000 })
+    image.setAt(lefttop[0]+parseInt(cwidth*7),lefttop[1]+parseInt(cheight*2), { red:0, green:255, blue:5, alpha:1000 })
+    image.setAt(lefttop[0]+parseInt(cwidth*3),lefttop[1]+parseInt(cheight*7), { red:0, green:255, blue:5, alpha:1000 })
+    image.setAt(lefttop[0]+parseInt(cwidth*7),lefttop[1]+parseInt(cheight*7), { red:0, green:255, blue:5, alpha:1000 })
     image.writeImage('GodPlease1.png')
 }) 
 function chunk (arr, len) {
